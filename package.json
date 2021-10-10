@@ -1,0 +1,29 @@
+{
+	"name": "runsheet",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "electron .",
+		"test": "electronmon .",
+		"build": "electron-packager . simple-scoreboard --platform win32 --arch x64 --out dist/ --overwrite --icon=./logo.ico",
+		"setup": "electron-installer-windows --src dist/simple-scoreboard-win32-x64/ --dest dist/installers/"
+	},
+	"keywords": [],
+	"author": "FBP_Coding",
+	"license": "ISC",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"electron-squirrel-startup": "^1.0.0",
+		"express": "^4.17.1",
+		"googleapis": "^88.2.0",
+		"node-json-db": "^1.4.1",
+		"socket.io": "^4.2.0"
+	},
+	"devDependencies": {
+		"electron": "^15.1.0",
+		"electron-installer-windows": "^3.0.0",
+		"electron-packager": "^15.4.0",
+		"electronmon": "^2.0.2"
+	}
+}

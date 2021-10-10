@@ -1,0 +1,25 @@
+{
+	"port": 8080,
+    "credentials": {
+        "installed": {
+            "client_id": "75917571243-ugp4dpcgvrmpvu6aagud4f890efjm5m9.apps.googleusercontent.com",
+            "project_id": "flowymedia",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "client_secret": "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",
+            "redirect_uris": [
+                "urn:ietf:wg:oauth:2.0:oob",
+                "http://localhost"
+            ]
+        }
+    },
+    "token": {
+        "access_token": "ya29.a0ARrdaM_w_tPBU9jfPwcERMDIynwZNiqYEkQWhzUbp2SSpJaIqzrwKDclwZmLYs7cOVJAv09nPl9NUV1pH3iQpxR09G7fUovtyhJ53NZvF5NvlnC4g17PJm3n3ELW02sIof6H0Fwk366V5jssyaWJm2r3RC3D",
+        "refresh_token": "1//09bqWCmJwDLbwCgYIARAAGAkSNwF-L9IrMtMJTz6-5WWAs3Ai7ZdmslJwWgvHYeEtQpCFfRBStsRVRRymNUxNFcZuBIm1KbyRqY0",
+        "scope": "https://www.googleapis.com/auth/spreadsheets.readonly",
+        "token_type": "Bearer",
+        "expiry_date": 1633876387976
+    },
+	"events": []
+}

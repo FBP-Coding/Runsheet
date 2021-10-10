@@ -1,0 +1,43 @@
+body {
+	margin: 0px;
+	background-color: black;
+}
+
+.event {
+	display: grid;
+	grid-template-columns: 2fr 1fr 4fr 5fr;
+	grid-template-rows: repeat(4, auto);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+
+	background-color: #222222;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 35px;
+	color: yellow;
+
+	margin: 20px;
+}
+
+.event .cell {
+	border: 1px solid #777777;
+	padding: 5px;
+	padding-bottom: 3px;
+	position: relative;
+	min-height: 58px;
+}
+
+.label {
+	color: #777777;
+	font-size: 16px;
+}
+
+
+.startTime { grid-area: 1 / 1 / 2 / 2; }
+.duration { grid-area: 1 / 2 / 2 / 3; }
+.countdown { grid-area: 2 / 1 / 3 / 3; }
+.cue { grid-area: 3 / 1 / 4 / 3; }
+.location { grid-area: 4 / 1 / 5 / 3; }
+.description { grid-area: 1 / 3 / 3 / 5; }
+.action { grid-area: 3 / 3 / 4 / 5; }
+.audioAction { grid-area: 4 / 3 / 5 / 4; }
+.videoAction { grid-area: 4 / 4 / 5 / 5; }
