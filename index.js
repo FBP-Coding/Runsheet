@@ -1,6 +1,6 @@
 const { readSheet } = require("./spreadsheet");
 const { } = require("./server");
-const { window } = require("./electron")
+const { window } = require("./main")
 
 async function main() {
 
