@@ -16,12 +16,4 @@ server.listen(db.getData("/port") || 8080, () => {
 	console.log('listening on *:' + (db.getData("/port") || 8080));
 });
 
-io.on('connection', (socket) => {
-	
-});
-
-function updateEvents(events) {
-	io.emit("updateEvents", events);
-}
-
-module.exports = { updateEvents };
+module.exports = { io };

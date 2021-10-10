@@ -1,0 +1,51 @@
+body {
+	margin: 0px;
+	display: grid;
+	grid-template-columns: 70px auto;
+	grid-template-rows: 100%;
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	background-color: #555;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.sidebar img {
+	width: 32px;
+	margin: 10px;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.content {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.content.list iframe {
+	border: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.content.settings {
+	display: block;
+	text-align: center;
+}
+
+#settings {
+	display: flex;
+	justify-content: space-around;
+}
+
+#settings .authentication div {
+	display: flex;
+	margin: 5px;
+	justify-content: space-between;
+}

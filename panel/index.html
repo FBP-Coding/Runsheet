@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="panel.js" defer></script>
+	<link rel="stylesheet" href="panel.css">
 	<title>Runsheet</title>
 </head>
+
 <body>
-	Runsheet
+	<div class="sidebar">
+		<img onclick="navigate(0)" src="img/list.svg">
+		<img onclick="navigate(1)" src="img/settings.svg">
+	</div>
+	<div class="content list hidden">
+		<iframe src="http://localhost:8080/" style=""></iframe>
+	</div>
+	<div class="content settings hidden">
+		<h1>Settings</h1>
+		<div id="settings">
+			<div class="authentication">
+				<h2>Authentication</h2>
+				<div id="authenticated">You are signed in</div>
+				<div id="notAuthenticated">
+					<a class="authUrl" id="authUrl" target="_blank">Click here to log in</a>
+					<div class="error" id="authError"></div>
+					<input type="text" id="authCode">
+				</div>
+				<h2>Spreadsheet</h2>
+				<div id="spreadsheetConnected">Spreadsheet Connected</div>
+				<div id="spreadsheetMissing">Spreadsheet Missing</div>
+				<div id="spreadsheetError" style="display: block;"></div>
+				<label for="spreadsheet">Spreadsheet:</label>
+				<input type="text" name="spreadsheet" id="spreadsheet">
+			</div>
+			<div class="otherSettings">
+				<h2>Other settings</h2>
+
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>
