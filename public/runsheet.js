@@ -37,50 +37,73 @@ socket.on("slide", id => {
 });
 
 function updateCounters() {
-	const events = document.getElementById("events").children;
+	const eventElms = document.getElementById("events").children;
 
-	for (let i = 0; i < events.length; i++) {
+	for (let i = 0; i < eventElms.length; i++) {
 		if (slideId > i) {
-			events[i].classList.add("past");
+			eventElms[i].classList.add("past");
 		} else {
-			events[i].classList.remove("past");
+			eventElms[i].classList.remove("past");
 		}
 		if (slideId == i) {
-			events[i].classList.add("current");
+			eventElms[i].classList.add("current");
 		} else {
-			events[i].classList.remove("current");
+			eventElms[i].classList.remove("current");
 		}
 		if (slideId < i) {
-			events[i].classList.add("future");
+			eventElms[i].classList.add("future");
 		} else {
-			events[i].classList.remove("future");
+			eventElms[i].classList.remove("future");
 		}
 
 		if (countdown < 0 && slideId == i) {
-			events[i].classList.add("over");
+			eventElms[i].classList.add("over");
 		} else {
-			events[i].classList.remove("over");
+			eventElms[i].classList.remove("over");
 		}
 		if (countdown <= 30 && countdown >= 0 && slideId == i) {
 			let value = Math.floor(countdown / 30 * 255);
 			let hex = value.toString(16);
 			if (hex.length < 2) hex = "0" + hex
 			console.log(hex);
-			events[i].querySelector(".countdown .content").style = `color: #ff${hex}00;`
+			eventElms[i].querySelector(".countdown .content").style = `color: #ff${hex}00;`
 		} else {
-			events[i].querySelector(".countdown .content").style = "";
+			eventElms[i].querySelector(".countdown .content").style = "";
 		}
 
-		if (countdown >= 0) {
-			const seconds = countdown % 60;
-			const minutes = Math.floor(countdown / 60);
+		let seconds = Math.abs(countdown) % 60;
+		let minutes = Math.floor(Math.abs(countdown) / 60);
 
-			events[i].querySelector(".countdown .content").innerText = ((minutes < 10 ? "0" + minutes : minutes) + "." + (seconds < 10 ? "0" + seconds : seconds));
+		if (slideId > i) continue;
+
+		if (slideId < i) {
+			if (countdown > 0) {
+				for (let j = slideId + 1; j <= i; j++) {
+					const string = events[j].duration;
+					const [min, sec] = string.split(".");
+					minutes += parseInt(min);
+					seconds += parseInt(sec);
+					if (seconds > 59) {
+						minutes++;
+						seconds -= 60
+					}
+				}
+			} else {
+				minutes = 0;
+				seconds = 0;
+				for (let j = slideId + 1; j <= i; j++) {
+					const string = events[j].duration;
+					const [min, sec] = string.split(".");
+					minutes += parseInt(min);
+					seconds += parseInt(sec);
+				}
+			}
+		}
+
+		if (countdown >= 0 || slideId < i) {
+			eventElms[i].querySelector(".countdown .content").innerText = ((minutes < 10 ? "0" + minutes : minutes) + "." + (seconds < 10 ? "0" + seconds : seconds));
 		} else {
-			const seconds = Math.abs(countdown) % 60;
-			const minutes = Math.floor(Math.abs(countdown) / 60);
-
-			events[i].querySelector(".countdown .content").innerText = ("-" + (minutes < 10 ? "0" + minutes : minutes) + "." + (seconds < 10 ? "0" + seconds : seconds));
+			eventElms[i].querySelector(".countdown .content").innerText = ("-" + (minutes < 10 ? "0" + minutes : minutes) + "." + (seconds < 10 ? "0" + seconds : seconds));
 		}
 	}
 }
