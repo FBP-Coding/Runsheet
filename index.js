@@ -29,6 +29,13 @@ async function main() {
 
 	timer.setInterval(() => {
 		io.emit("countdown", currentCountdown);
+
+		if (currentCountdown < 0 && sheetData[currentSlide].specific) {
+			currentSlide += 1;
+			io.emit("slide", currentSlide);
+			resetCountdown();
+		}
+
 		currentCountdown -= 1;
 	}, '', '1s');
 

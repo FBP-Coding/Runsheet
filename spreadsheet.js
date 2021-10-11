@@ -89,7 +89,7 @@ async function readSheet(id) {
 		const sheets = google.sheets({ version: 'v4', auth: oAuth2Client });
 		const res = await sheets.spreadsheets.values.get({
 			spreadsheetId: id,
-			range: 'A2:H',
+			range: 'A2:J',
 		});
 
 		const rows = res.data.values;
@@ -104,6 +104,8 @@ async function readSheet(id) {
 				action: 		event[5],
 				videoAction: 	event[6],
 				audioAction: 	event[7],
+				specific: 		event[8] == "TRUE",
+				scene: 			event[9],
 			}
 		})
 
