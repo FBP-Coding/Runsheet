@@ -1,22 +1,51 @@
+const NanoTimer = require('nanotimer');
 const { readSheet, getAuthUrl, setAuthCode } = require("./spreadsheet");
 const { io } = require("./server");
-const { window } = require("./main")
+const { window, app } = require("./main")
 const db = require('./db');
 const { ipcMain } = require('electron')
 
+let sheetData = [];
+let currentSlide = 0;
+let currentCountdown = 0;
+
+io.on("connection", (socket) => {
+	socket.emit("data", sheetData);
+	socket.emit("slide", currentSlide);
+	socket.emit("countdown", currentCountdown);
+
+	socket.on("updateSlide", slideId => {
+		if (!sheetData[slideId]) return;
+		currentSlide = slideId;
+		io.emit("slide", slideId);
+		resetCountdown();
+	})
+})
+
 async function main() {
+	await app.whenReady();
 
-	setInterval(()=> {
-		io.emit("now", new Date());
-	}, 250);
+	const timer = new NanoTimer();
 
-	const x = {
-		currentSlide: 1,
-		countDown: 120
-	}
+	timer.setInterval(() => {
+		io.emit("countdown", currentCountdown);
+		currentCountdown -= 1;
+	}, '', '1s');
 
-	//TODO: Own counter
+	// Run this if it is to only send the countdown every 10 seconds
+	// setInterval(()=> {
+	// 	io.emit("countdown", currentCountdown);
+	// 	// currentCountdown -= 1;
+	// }, 10000);
+}
 
+/** 
+ *	Resets the countdown to the initial value of the current slide
+ */
+function resetCountdown() {
+	const countdownArr = sheetData[currentSlide].duration.split(".");
+	currentCountdown = parseInt(countdownArr[0]) * 60 + parseInt(countdownArr[1])
+	io.emit("countdown", currentCountdown);
 }
 
 ipcMain.on("loaded", async (event, arg) => {
@@ -26,7 +55,6 @@ ipcMain.on("loaded", async (event, arg) => {
 		event.reply("auth", { status: true })
 	}
 	catch (err) {
-		console.log(err);
 		event.reply("auth", { status: false, authUrl: getAuthUrl() });
 	}
 	const sheetId = db.getData("/sheetId");
@@ -34,8 +62,12 @@ ipcMain.on("loaded", async (event, arg) => {
 		try {
 			const data = await readSheet(sheetId);
 			event.reply("data", { status: true, data, sheetId });
+			io.emit("data", data);
+			sheetData = data;
+			resetCountdown();
 		}
 		catch (err) {
+			console.log(err);
 			event.reply("data", { status: false, error: "Invalid sheetId", sheetId });
 		}
 	} else {
@@ -58,6 +90,9 @@ ipcMain.on("spreadsheet", async (event, sheetId) => {
 	try {
 		const data = await readSheet(sheetId);
 		event.reply("data", { status: true, data, sheetId });
+		io.emit("data", data);
+		sheetData = data;
+		resetCountdown();
 	}
 	catch (error) {
 		event.reply("data", { status: false, error, sheetId });

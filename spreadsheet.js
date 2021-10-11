@@ -89,12 +89,25 @@ async function readSheet(id) {
 		const sheets = google.sheets({ version: 'v4', auth: oAuth2Client });
 		const res = await sheets.spreadsheets.values.get({
 			spreadsheetId: id,
-			range: 'A2:E',
+			range: 'A2:H',
 		});
 
 		const rows = res.data.values;
 
-		return rows;
+		const data = rows.map((event) => {
+			return {
+				startTime: 		event[0],
+				duration: 		event[1],
+				cue: 			event[2],
+				description: 	event[3],
+				location: 		event[4],
+				action: 		event[5],
+				videoAction: 	event[6],
+				audioAction: 	event[7],
+			}
+		})
+
+		return data;
 	}
 	catch (err) {
 		if (err.code==403)

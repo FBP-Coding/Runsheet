@@ -59,4 +59,4 @@ app.on('window-all-closed', function () {
 	if (process.platform !== 'darwin') app.quit()
 })
 
-module.exports = { window }
+module.exports = { window, app }

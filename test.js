@@ -8,7 +8,3 @@ function dateFromString(date) {
 
 	return d;
 }
-
-function fromArrayToObject(array) {
-	const data
-}

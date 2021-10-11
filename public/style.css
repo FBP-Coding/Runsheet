@@ -18,6 +18,23 @@ body {
 	margin: 20px;
 }
 
+.event.past, .event.future{
+	color: #777777;
+	background-color: black;
+}
+
+.event.semiNear .countdown .content{
+	color: #ff0000;
+}
+
+.event.near .countdown .content{
+	color: #ff0000;
+}
+
+.event.over .countdown .content{
+	color: #ff0000;
+}
+
 .event .cell {
 	border: 1px solid #777777;
 	padding: 5px;
