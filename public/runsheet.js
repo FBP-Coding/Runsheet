@@ -33,6 +33,7 @@ let slideId = 0;
 socket.on("slide", id => {
 	slideId = id;
 	updateCounters();
+	document.getElementById("events").children[slideId].scrollIntoView({ behavior: "smooth", block: "center" })
 });
 
 function updateCounters() {
@@ -63,7 +64,7 @@ function updateCounters() {
 		if (countdown <= 30 && countdown >= 0 && slideId == i) {
 			let value = Math.floor(countdown / 30 * 255);
 			let hex = value.toString(16);
-			if (hex.length < 2) hex = "0"+hex
+			if (hex.length < 2) hex = "0" + hex
 			console.log(hex);
 			events[i].querySelector(".countdown .content").style = `color: #ff${hex}00;`
 		} else {
@@ -85,12 +86,12 @@ function updateCounters() {
 }
 
 function pickHex(color1, color2, weight) {
-    var w1 = weight;
-    var w2 = 1 - w1;
-    var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
-        Math.round(color1[1] * w1 + color2[1] * w2),
-        Math.round(color1[2] * w1 + color2[2] * w2)];
-    return rgb;
+	var w1 = weight;
+	var w2 = 1 - w1;
+	var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
+	Math.round(color1[1] * w1 + color2[1] * w2),
+	Math.round(color1[2] * w1 + color2[2] * w2)];
+	return rgb;
 }
 
 function updateEvents(events) {
@@ -110,7 +111,7 @@ function updateEvents(events) {
 		div.querySelector(".audioAction .content").innerText = event.audioAction ? event.audioAction : "";
 		div.querySelector(".videoAction .content").innerText = event.videoAction ? event.videoAction : "";
 
-		div.querySelector(".event").addEventListener("click", ()=>{
+		div.querySelector(".event").addEventListener("click", () => {
 			console.log(i);
 			socket.emit("updateSlide", i);
 		})
