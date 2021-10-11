@@ -4,6 +4,7 @@ const { io } = require("./server");
 const { window, app } = require("./main")
 const db = require('./db');
 const { ipcMain } = require('electron')
+const { obs } = require("./obs");
 
 let sheetData = [];
 let currentSlide = 0;
@@ -45,6 +46,16 @@ async function main() {
 	// 	// currentCountdown -= 1;
 	// }, 10000);
 }
+
+obs.on("SwitchScenes", (scene) => {
+	if (!sheetData[currentSlide + 1]) return;
+	if (!sheetData[currentSlide + 1].scene) return;
+	if (sheetData[currentSlide + 1].scene !== scene["scene-name"]) return;
+
+	currentSlide += 1;
+	io.emit("slide", currentSlide);
+	resetCountdown();
+})
 
 /** 
  *	Resets the countdown to the initial value of the current slide
