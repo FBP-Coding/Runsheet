@@ -6,8 +6,8 @@
 	"scripts": {
 		"start": "electron .",
 		"test": "electronmon .",
-		"build": "electron-packager . simple-scoreboard --platform win32 --arch x64 --out dist/ --overwrite --icon=./logo.ico",
-		"setup": "electron-installer-windows --src dist/simple-scoreboard-win32-x64/ --dest dist/installers/"
+		"build": "electron-packager . runsheet --platform win32 --arch x64 --out dist/ --overwrite --icon=./logo.ico",
+		"setup": "electron-installer-windows --src dist/runsheet-win32-x64/ --dest dist/installers/"
 	},
 	"keywords": [],
 	"author": "FBP_Coding",

@@ -38,7 +38,18 @@
 			</div>
 			<div class="otherSettings">
 				<h2>Other settings</h2>
-				<!--TODO: add port setting-->
+				<label for="port">Port:</label>
+				<input type="number" name="port" id="port">
+				<p>Restart the app for the port to take effect</p>
+				<h2>OBS</h2>
+				<div id="obsError"></div>
+				<label for="obsip">OBS ip:</label>
+				<input type="text" name="obsip" id="obsip">
+				<br/>
+				<label for="obsport">OBS Port:</label>
+				<input type="number" name="obsport" id="obsport">
+				<br />
+				<button id="obsReconnect">Reconnect to OBS</button>
 			</div>
 		</div>
 	</div>

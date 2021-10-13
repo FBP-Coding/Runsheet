@@ -1,7 +1,12 @@
+const db = require("./db");
+
 const OBSWebSocket = require('obs-websocket-js');
 const obs = new OBSWebSocket();
-obs.connect({ address: 'localhost:4444' });
 
-// TODO: Get the settings from the settings panel in the app
+function connect() {
+	obs.connect({ address: db.getData("/obsip") + ":" + db.getData("/obsport") });
+}
 
-module.exports = { obs }
+connect();
+
+module.exports = { obs, connect }

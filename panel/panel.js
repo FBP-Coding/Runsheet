@@ -83,3 +83,54 @@ function navigate(page) {
 		pages[0].classList.remove("hidden")
 	}
 }
+
+const db = require("../db");
+const { obs, connect: obsConnect } = require("../obs");
+
+const obsErrorElm = document.getElementById("obsError");
+const portElm = document.getElementById("port");
+const obsportElm = document.getElementById("obsport");
+const obsipElm = document.getElementById("obsip");
+const obsReconnectElm = document.getElementById("obsReconnect");
+portElm.value = db.getData("/port");
+obsportElm.value = db.getData("/obsport");
+obsipElm.value = db.getData("/obsip");
+portElm.addEventListener("change", () => {
+	db.push("/port", parseInt(portElm.value));
+	obsConnect();
+	updateOBSStatus();
+})
+obsportElm.addEventListener("change", () => {
+	db.push("/obsport", parseInt(obsportElm.value));
+	obsConnect();
+	updateOBSStatus();
+})
+obsipElm.addEventListener("change", () => {
+	db.push("/obsip", obsipElm.value);
+	obsConnect();
+	updateOBSStatus();
+})
+
+obs.on("ConnectionOpened", ()=>{
+	updateOBSStatus()
+})
+
+obs.on("ConnectionClosed", ()=>{
+	updateOBSStatus()
+})
+
+function updateOBSStatus() {
+	if (!obs._connected) {
+		console.log("OBS failed");
+		obsErrorElm.innerText = "Failed to connect";
+	} else {
+		obsErrorElm.innerText = "Connected";
+	}
+}
+
+updateOBSStatus();
+
+obsReconnectElm.addEventListener("click", ()=>{
+	obsConnect();
+	updateOBSStatus();
+})

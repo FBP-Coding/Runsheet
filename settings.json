@@ -1,5 +1,7 @@
 {
     "port": 8080,
+    "obsport": 4444,
+    "obsip": "127.0.0.1",
     "sheetId": "1YRGMSnzSk1jgxAzo0WThvE-Na8yNPMenRPJwObLKdZ8",
     "credentials": {
         "installed": {
