@@ -72,6 +72,11 @@ createSocket(async data => {
 				console.log(error.error);
 			}
 		}
+	} else if (data.toString() == "nextSlide") {
+		if (!sheetData[currentSlide + 1]) return;
+		currentSlide++;
+		io.emit("slide", currentSlide);
+		resetCountdown();
 	}
 })
 
