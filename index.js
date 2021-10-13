@@ -1,6 +1,6 @@
 const NanoTimer = require('nanotimer');
 const { readSheet, getAuthUrl, setAuthCode } = require("./spreadsheet");
-const { io } = require("./server");
+const { io, createSocket } = require("./server");
 const { window, app } = require("./main")
 const db = require('./db');
 const { ipcMain } = require('electron')
@@ -15,12 +15,64 @@ io.on("connection", (socket) => {
 	socket.emit("slide", currentSlide);
 	socket.emit("countdown", currentCountdown);
 
-	socket.on("updateSlide", slideId => {
+	socket.on("updateSlide", async slideId => {
 		if (!sheetData[slideId]) return;
 		currentSlide = slideId;
 		io.emit("slide", slideId);
 		resetCountdown();
+		// if (sheetData[currentSlide - 1] && sheetData[currentSlide - 1].overlay) {
+
+		// 	try {
+		// 		let { scenes } = await obs.send("GetSceneList");
+		// 		for (let i = 0; i < scenes.length; i++) {
+		// 			await obs.send("SetSceneItemProperties", {
+		// 				"scene-name": scenes[i].name,
+		// 				item: { name: sheetData[currentSlide - 1].overlay },
+		// 				visible: false
+		// 			})
+		// 		}
+		// 	} catch (error) {
+		// 		console.log(error);
+		// 	}
+		// }
+		// if (sheetData[currentSlide].overlay) {
+		// 	try {
+		// 		let { scenes } = await obs.send("GetSceneList");
+		// 		for (let i = 0; i < scenes.length; i++) {
+		// 			console.log(scenes[i].name);
+		// 			await obs.send("SetSceneItemRender", {
+		// 				"scene-name": scenes[i].name,
+		// 				source: sheetData[currentSlide].overlay,
+		// 				render: true
+		// 			})
+		// 		}
+		// 	} catch (error) {
+		// 		console.log(error.error);
+		// 	}
+		// }
 	})
+})
+
+createSocket(async data => {
+	console.log(data);
+	if (data.toString() == "overlay") {
+		if (sheetData[currentSlide].overlay) {
+			try {
+				let { scenes } = await obs.send("GetSceneList");
+				for (let i = 0; i < scenes.length; i++) {
+					console.log(scenes[i].name);
+					let source = scenes[i].sources.filter(e => e.name === sheetData[currentSlide].overlay)[0]
+					await obs.send("SetSceneItemRender", {
+						"scene-name": scenes[i].name,
+						source: sheetData[currentSlide].overlay,
+						render: !source.render
+					})
+				}
+			} catch (error) {
+				console.log(error.error);
+			}
+		}
+	}
 })
 
 async function main() {
