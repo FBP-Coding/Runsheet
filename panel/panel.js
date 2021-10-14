@@ -38,6 +38,11 @@ const spreadsheetConnectedElm = document.getElementById("spreadsheetConnected");
 const spreadsheetMissingElm = document.getElementById("spreadsheetMissing");
 const spreadsheetElm = document.getElementById("spreadsheet");
 const spreadsheetErrorElm = document.getElementById("spreadsheetError");
+const updateSpreadsheetElm = document.getElementById("updateSpreadsheet");
+
+updateSpreadsheetElm.addEventListener("click", event => {
+	ipcRenderer.send("spreadsheet", spreadsheetElm.value);
+})
 
 spreadsheetElm.addEventListener("keydown", event => {
 	if (event.key == "Enter") {
@@ -111,11 +116,11 @@ obsipElm.addEventListener("change", () => {
 	updateOBSStatus();
 })
 
-obs.on("ConnectionOpened", ()=>{
+obs.on("ConnectionOpened", () => {
 	updateOBSStatus()
 })
 
-obs.on("ConnectionClosed", ()=>{
+obs.on("ConnectionClosed", () => {
 	updateOBSStatus()
 })
 
@@ -130,7 +135,7 @@ function updateOBSStatus() {
 
 updateOBSStatus();
 
-obsReconnectElm.addEventListener("click", ()=>{
+obsReconnectElm.addEventListener("click", () => {
 	obsConnect();
 	updateOBSStatus();
 })
