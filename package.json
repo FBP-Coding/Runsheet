@@ -1,7 +1,7 @@
 {
 	"name": "runsheet",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Runsheet is used to display the program of an event. It imports from a google sheets document directly input the program.",
 	"main": "index.js",
 	"scripts": {
 		"start": "electron .",
