@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "electron .",
 		"test": "electronmon .",
-		"build": "electron-packager . runsheet --platform win32 --arch x64 --out dist/ --overwrite --icon=./logo.ico",
+		"build": "electron-packager . runsheet --platform win32 --arch x64 --out dist/ --overwrite --icon=./icon.ico",
 		"setup": "electron-installer-windows --src dist/runsheet-win32-x64/ --dest dist/installers/"
 	},
 	"keywords": [],

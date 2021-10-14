@@ -15,7 +15,7 @@ function createWindow() {
 			contextIsolation: false
 		},
 		autoHideMenuBar: true,
-		icon: path.join(__dirname, 'logo.ico')
+		icon: path.join(__dirname, 'icon.png')
 	})
 
 	// and load the index.html of the app.
