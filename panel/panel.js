@@ -87,6 +87,8 @@ function navigate(page) {
 	if (!changed) {
 		pages[0].classList.remove("hidden")
 	}
+	const runsheetIframeElm = document.getElementById("runsheetIframe")
+	runsheetIframeElm.src = runsheetIframeElm.src;
 }
 
 const db = require("../db");
